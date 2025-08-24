@@ -1,5 +1,9 @@
 from fastapi import FastAPI
-from 
+from routes.like_router import like_router
+from routes.comment_router import comment_router
+from routes.post_router import post_router
+from routes.user_router import user_router
+
 app = FastAPI(title="Social Media API", version="1.0.0")
 
 app.include_router(user_router, prefix="/users", tags=["Users"])

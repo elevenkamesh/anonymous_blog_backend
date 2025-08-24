@@ -2,9 +2,9 @@ from fastapi import APIRouter , Depends
 from database import likes_collection
 from datetime import datetime
 from lib.auth import get_current_user
-router = APIRouter()
+like_router = APIRouter()
 
-@router.post("/{id}", summary="Like a post")
+@like_router.post("/{id}", summary="Like a post")
 async def like_post(id: str, current_user: dict = Depends(get_current_user)):
     isExist = await likes_collection.find_one({"post_id": id, "user_id": str(current_user["_id"])})
     if isExist:
