@@ -1,7 +1,7 @@
 from fastapi import APIRouter , Depends
-from database import likes_collection
+from app.database import likes_collection
 from datetime import datetime
-from lib.auth import get_current_user
+from app.lib.auth import get_current_user
 like_router = APIRouter()
 
 @like_router.post("/{id}", summary="Like a post")

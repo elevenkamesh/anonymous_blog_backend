@@ -1,10 +1,10 @@
 from fastapi import FastAPI , Depends , APIRouter
-from database import users_collection
+from app.database import users_collection
 from bson import ObjectId
-from lib.auth import get_current_user , create_access_token
+from app.lib.auth import get_current_user , create_access_token
 from pydantic import BaseModel
 from typing import List
-from lib.utils import hash_password , verify_password
+from app.lib.utils import hash_password , verify_password
 from datetime import datetime
 user_router = APIRouter()
 

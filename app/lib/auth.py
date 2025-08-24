@@ -1,7 +1,7 @@
 from fastapi import Depends, HTTPException , status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from typing import Optional
-from database import users_collection
+from app.database import users_collection
 from bson import ObjectId
 import jwt 
 

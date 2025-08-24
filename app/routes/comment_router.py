@@ -1,8 +1,8 @@
 from fastapi import FastAPI , APIRouter , Depends
-from database import comments_collection
+from app.database import comments_collection
 from datetime import datetime
 from bson import ObjectId
-from lib.auth import get_current_user
+from app.lib.auth import get_current_user
 from fastapi.responses import JSONResponse
 comment_router = APIRouter()
 

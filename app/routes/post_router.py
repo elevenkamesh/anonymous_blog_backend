@@ -1,6 +1,6 @@
-from database import posts_collection 
+from app.database import posts_collection 
 from fastapi import APIRouter, HTTPException, Depends
-from lib.auth import get_current_user
+from app.lib.auth import get_current_user
 from datetime import datetime
 from typing import List
 from pydantic import BaseModel

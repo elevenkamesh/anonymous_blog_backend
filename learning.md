@@ -13,3 +13,7 @@ uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4
 --host 0.0.0.0: Makes the server publicly accessible.
 --port 8000: Specifies the port.
 --workers 4: Runs multiple worker processes (for CPU-bound tasks).
+
+
+
+uvicorn app.main:app --reload
