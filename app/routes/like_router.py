@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from database import likes_collection
+from jwt import get_current_user
 router = APIRouter()
 
 @router.post("/{id}", summary="Like a post")
@@ -7,7 +8,7 @@ async def like_post(id: str, current_user: dict = Depends(get_current_user)):
     isExist = await likes_collection.find_one({"post_id": id, "user_id": str(current_user["_id"])})
     if isExist:
         result = await likes_collection.delete_one({"_id": isExist["_id"]})
-        { "message": "unliked", "like_id": str(isExist["_id"]) }
+       return  { "message": "unliked", "like_id": str(isExist["_id"]) }
         
     like_doc = {
         "post_id": id,
