@@ -1,4 +1,4 @@
-from pydantic iomport BaseModel
+from pydantic import BaseModel
 from datetime import datetime
 from typing import Optional
 
@@ -7,7 +7,7 @@ class Post(BaseModel):
     title: str
     content: str
     image_url: Optional[str] = None
-    user_id: str
+    author_id: str
     created_at:  datetime = Field(default_factory=datetime.utcnow)
     updated_at:  datetime = Field(default_factory=datetime.utcnow)
     class Config:

@@ -3,7 +3,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from typing import Optional
 from database import users_collection
 from bson import ObjectId
-import jwt
+import jwt 
 
 security = HTTPBearer()
 
@@ -19,7 +19,7 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid token: missing user_id",
             )
-        user = await users_collection.find_one({"_id": ObjectId(user_id)})
+        user = users_collection.find_one({"_id": ObjectId(user_id)})
 
         if not user:
             raise HTTPException(
@@ -32,3 +32,10 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
         raise HTTPException(status_code=401, detail="Token expired")
     except jwt.InvalidTokenError:
         raise HTTPException(status_code=401, detail="Invalid token")
+
+def create_access_token(data: dict, expires_delta: Optional[int] = None):
+    to_encode = data.copy()
+    if expires_delta:
+        to_encode.update({"exp": expires_delta})
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm="HS256")
+    return encoded_jwt
