@@ -3,6 +3,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from typing import Optional
 from app.database import users_collection
 from bson import ObjectId
+from datetime import datetime, timedelta
 import jwt 
 
 security = HTTPBearer()
@@ -33,9 +34,14 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
     except jwt.InvalidTokenError:
         raise HTTPException(status_code=401, detail="Invalid token")
 
-def create_access_token(data: dict, expires_delta: Optional[int] = None):
+# ✅ Token creator
+def create_access_token(data: dict, expires_delta: Optional[int] = 60):
+    """
+    expires_delta: expiry time in minutes (default 60 min)
+    """
     to_encode = data.copy()
-    if expires_delta:
-        to_encode.update({"exp": expires_delta})
+    expire = datetime.utcnow() + timedelta(minutes=expires_delta)
+    to_encode.update({"exp": expire})
+
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm="HS256")
     return encoded_jwt

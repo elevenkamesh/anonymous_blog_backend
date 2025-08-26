@@ -22,11 +22,15 @@ def serialize_doc(doc):
 
 post_router = APIRouter()
 
+class CreatePostModel(BaseModel):
+    title: str
+    content: str
+
 @post_router.post("/", summary="Create a new post")
-async def create_post(post: dict, current_user: dict = Depends(get_current_user)):
+async def create_post(post: CreatePostModel, current_user: dict = Depends(get_current_user)):
     post_doc = {
-        "title": post["title"],
-        "content": post["content"],
+        "title": post.title,
+        "content": post.content,
         "author_id": str(current_user["_id"]),  # store user id
         "created_at": datetime.utcnow()
     }
